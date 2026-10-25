@@ -51,6 +51,12 @@ public class App {
         
         event = ctx.getBean(Event.class);
         logEvent(null, event, "Some event for 3");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.DEBUG, event, "Some debug event");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.WARNING, event, "Some warning event");
     }
     
     public App() {}
@@ -63,7 +69,7 @@ public class App {
     }
 
     private void logEvent(EventType eventType, Event event, String msg) {
-        String message = msg.replaceAll(client.getId(), client.getFullName());
+        String message = msg.replaceAll(client.getId(), client.getFullName() + " from " + client.getCity());
         event.setMsg(message);
         
         EventLogger logger = loggers.get(eventType);
